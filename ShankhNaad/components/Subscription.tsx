@@ -20,6 +20,7 @@ const Subscription = () => {
       pathname: referer,
     });
   }
+  console.log(liveUser);
 
     const { data } = useQuery(GET_TRANSFER_CBOR,{
       variables: {

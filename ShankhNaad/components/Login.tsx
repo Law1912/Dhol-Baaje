@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { CardanoWallet, useWallet } from '@meshsdk/react';
 import { checkSignature, generateNonce } from '@meshsdk/core';
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GET_ALL_USERS } from '../graphql/query';
 import { useRecoilState } from "recoil";
 import { LiveUser } from "../atoms/playerAtom";

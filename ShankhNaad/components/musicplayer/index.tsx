@@ -4,7 +4,6 @@ import {
   currentPlaylistState,
   playingTrackState,
   playState,
-  recentlyPlayedTracks,
 } from "../../atoms/playerAtom";
 import { Track as TrackType } from "../../types/body.types";
 import Track from "./Track";
@@ -17,7 +16,6 @@ import TrackContext from "../../hooks/trackContext";
 const MusicPlayer = () => {
   const [play, setPlay] = useRecoilState(playState);
   const playingTrack = useRecoilValue(playingTrackState);
-  const recentlyPlayed = useRecoilValue(recentlyPlayedTracks);
   const currentPlaylist = useRecoilValue(currentPlaylistState);
   const [duration, setDuration] = useState(0);
   const [seekTime, setSeekTime] = useState(0);
@@ -57,10 +55,6 @@ const MusicPlayer = () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, [handleKeyPress]);
-
-  useEffect(() => {
-    localStorage.setItem("recentlyPlayed", JSON.stringify(recentlyPlayed));
-  }, [recentlyPlayed]);
 
   const handlePlayPause = () => {
     setPlay(!play);

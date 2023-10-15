@@ -31,6 +31,8 @@ function Poster({ track, playlist }: PosterProps) {
     }
   });
 
+  console.log(data);
+
   if(liveUser && liveUser.likedTracksId) {
     const index = liveUser.likedTracksId.findIndex(
       (el: String) => el === track.id
@@ -58,6 +60,7 @@ function Poster({ track, playlist }: PosterProps) {
       }
     }
   };
+
 
   function handleLike(track: Track) {
     if(!liveUser) {
@@ -147,10 +150,13 @@ function Poster({ track, playlist }: PosterProps) {
               updatedAt: data.userFindOneByUsername.updatedAt,
             }
           }
-        });      
+        });
       }
 
       const mapLikesToRewards = (likes) => {
+        if(likes < 0) {
+          return 0;
+        }
         return 150 * likes/(1000000 + likes);
       };
 

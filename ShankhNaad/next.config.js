@@ -18,7 +18,7 @@ const nextConfig = {
     CARDANO_WALLET_ADDRESS: process.env.CARDANO_WALLET_ADDRESS,
     CARDANO_SPACED_MNEMONIC: process.env.CARDANO_SPACED_MNEMONIC,
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   webpack: function (config, options) {
     config.experiments = {

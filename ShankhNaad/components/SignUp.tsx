@@ -159,6 +159,9 @@ const signup = () => {
                   Username <p className="text-green-500 px-2">{username}</p> is
                   available!!
                 </div>
+                <div className="flex flex:row py-2">
+                  You will be subscribed for a free 7 day trial.
+                </div>
                 <CardanoWallet
                   label="Sign In with Cardano"
                   onConnected={() => frontendStartLoginProcess()}
