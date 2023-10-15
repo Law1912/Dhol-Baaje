@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { MINT_TRACK, SAVE_USER, SUBMIT_TRANSACTION } from '../graphql/mutation';
+import { MINT_TRACK, SAVE_USER, SUBMIT_TRANSACTION, TRANSFER_NFT } from '../graphql/mutation';
 import { Genre } from '../types/body.types';
 import pinFileToIPFS from '../pages/api/pinata/pinFiletoIPFS';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { LiveUser } from '../atoms/playerAtom';
 import { GET_MINTING_NFT_CBOR } from '../graphql/query';
 import { useWallet } from '@meshsdk/react';
+import { Transaction, ForgeScript } from '@meshsdk/core';
+import type { Mint, AssetMetadata } from '@meshsdk/core';
 
 const albumOptions = Object.values(Genre);
 
@@ -24,6 +26,13 @@ const UploadForm: React.FC = () => {
     
     const [SaveUser] = useMutation(SAVE_USER);
     const [submit] = useMutation(SUBMIT_TRANSACTION);
+    const [transferNft] = useMutation(TRANSFER_NFT, {
+        context: {
+            headers: {
+                'seed-phrase': process.env.CARDANO_SPACED_MNEMONIC,
+            }
+        }
+    });
     
     const [imageData, setImageData] = useState("Select an image file!");
     const [imageurl, setImageurl] = useState("");
@@ -127,29 +136,36 @@ const UploadForm: React.FC = () => {
 
     };
 
-    const Transact = async (response) => {
-        const { data } = await getCbor({
-            variables: {
-              nft: {
-                walletAddress: liveUser.wallet.address,
-                assetName: response.data.trackMintNft.title,
-                metaData: {
-                    name: response.data.trackMintNft.title,
-                    description: response.data.trackMintNft.nftDescription,
-                    image: `ipfs://${imageNft}`
-                }
-              }
-            }
-        });
-        const signedTx = await wallet.signTx(data.mintingNftCbor);
-        console.log(signedTx);
-        submit({
-        variables: {
-            cbor: signedTx,
-        }
-        }).then((response) => {
-            console.log(response);
-        });
+    const Transact = async (response, data) => {
+
+        const forgingScript = ForgeScript.withOneSignature(liveUser.wallet.address);
+
+        const tx = new Transaction({ initiator: wallet });
+
+        // define asset#1 metadata
+        const assetMetadata: AssetMetadata = {
+            "name": response.data.trackMintNft.nftAssetName,
+            "image": `ipfs://${imageNft}`,
+            "mediaType": "image/jpg",
+            "description": response.data.trackMintNft.nftDescription
+        };
+        const asset1: Mint = {
+            assetName: 'MeshToken',
+            assetQuantity: '1',
+            metadata: assetMetadata,
+            label: '721',
+            recipient: liveUser.wallet.address,
+        };
+        tx.mintAsset(
+            forgingScript,
+            asset1,
+        );
+
+        const unsignedTx = await tx.build();
+        const signedTx = await wallet.signTx(unsignedTx);
+        const txHash = await wallet.submitTx(signedTx);
+        console.log(await txHash);
+        alert(`Asset minted ${txHash}`);
 
     }
 
@@ -169,7 +185,7 @@ const UploadForm: React.FC = () => {
                     n_listens: 0,
                     value: 1,
                     nftIpfsCid: imageNft,
-                    nftAssetName: "Dhol Baaje",
+                    nftAssetName: "Dhol Baaje - " + formData.title,
                     nftName: "Dhol Baaje - " + formData.title,
                     nftDescription: "Dhol Baaje Song - " + formData.description,
                     username: liveUser.username,
@@ -177,22 +193,12 @@ const UploadForm: React.FC = () => {
             }
         }).then((response) => {
             alert('Form submitted successfully!');
-            setDescription(response.data.trackMintNft.nftDescription);
-            formData.music = '';
-            formData.title = '';
-            formData.subtitle = '';
-            formData.description = '';
-            formData.image = '';
-            formData.album = [];
-            formData.nftIpfsCid = '';
-            setAudioData("Select an audio file!");
-            setImageData("Select an image file!");
             setliveUser({
                 ...liveUser,
                 myTracksId: liveUser.myTracksId !== null ? [...liveUser.myTracksId, response.data.trackMintNft.id] : [response.data.trackMintNft.id],
             });
             SaveUser({
-                variables:{
+                variables: {
                     user: {
                         id: liveUser.id,
                         myTracksId: liveUser.myTracksId !== null ? [...liveUser.myTracksId, response.data.trackMintNft.id] : [response.data.trackMintNft.id],
@@ -202,8 +208,19 @@ const UploadForm: React.FC = () => {
                         updatedAt: liveUser.updatedAt,
                     }
                 }
+            }).then((data) => {
+                Transact(response, data);
             });
-            Transact(response);
+            // Transact(response);
+            formData.music = '';
+            formData.title = '';
+            formData.subtitle = '';
+            formData.description = '';
+            formData.image = '';
+            formData.album = [];
+            formData.nftIpfsCid = '';
+            setAudioData("Select an audio file!");
+            setImageData("Select an image file!");
         })
     }
 

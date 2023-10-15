@@ -35,6 +35,7 @@ const Subscription = () => {
         }
       }
     });
+    
     useEffect(() => {
       if (data && data.transferCbor) {
         setCbor(data.transferCbor);

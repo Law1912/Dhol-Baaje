@@ -16,6 +16,7 @@ const nextConfig = {
     CARDANO_WALLET_ID: process.env.CARDANO_WALLET_ID,
     CARDANO_WALLET_MNEMONIC: process.env.CARDANO_WALLET_MNEMONIC,
     CARDANO_WALLET_ADDRESS: process.env.CARDANO_WALLET_ADDRESS,
+    CARDANO_SPACED_MNEMONIC: process.env.CARDANO_SPACED_MNEMONIC,
   },
   reactStrictMode: true,
   swcMinify: true,

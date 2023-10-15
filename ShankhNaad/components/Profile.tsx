@@ -71,6 +71,7 @@ const Profile = () => {
       ...liveUser,
       rewards: 0
     });
+    alert("your rewards have been sent!");
   }
 
   const [isHovered, setIsHovered] = useState(false);

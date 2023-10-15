@@ -70,6 +70,12 @@ mutation transfer ($transfer: TransferDto!) {
  }
 `;
 
+export const TRANSFER_NFT = gql`
+mutation Transfer ($transfer: TransferDto!) {
+    transfer (transfer: $transfer)
+}
+`;
+
 export const SAVE_WALLET = gql`
 mutation walletCreate($wallet: WalletInput!) {
     walletSave(wallet: $wallet) {
