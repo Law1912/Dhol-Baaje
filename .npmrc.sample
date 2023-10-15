@@ -1,0 +1,3 @@
+strict-peer-dependencies=false
+auto-install-peers=true
+http://registry.npmjs.org/:_authToken=npm_CIBK...

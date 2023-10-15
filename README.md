@@ -57,21 +57,21 @@ Build the Dhol Baaje application.
 pnpm nx affected:build
 ```
 
-### Step 6: Configure Logosphere API for Music
+### Step 6: Configure Logosphere API for Shankhnaad
 
-Configure the Logosphere API module for music.
+Configure the Logosphere API module for shankhnaad.
 
 ```
-pnpm nx g @logosphere/sdk:api --module music
+pnpm nx g @logosphere/sdk:api --module shankhnaad
 ```
 
-### Step 7: Change the /path/to/install/libs/music-gen/src/resolvers/track.resolver.ts
+### Step 7: Set Environment Variables
 
-Search for **FindOneByUsername** and replace all its occurances by **FindOneByEmail**.
+Rename .env.sample to .env and set the necessary environment variables for the application. 
 
-### Step 8: Set Environment Variables
+### Step 8: Setting .npmrc
 
-Set the necessary environment variables for the application.
+Rename .npmrc.sample to .npmrc and set the npm authtoken as shown in sample for the application. 
 
 ### Step 9: Run the Application
 
