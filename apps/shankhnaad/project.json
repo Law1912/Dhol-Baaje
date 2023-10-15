@@ -1,0 +1,78 @@
+{
+  "root": "apps/shankhnaad",
+  "sourceRoot": "apps/shankhnaad/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["dist/apps/shankhnaad"],
+      "options": {
+        "outputPath": "dist/apps/shankhnaad",
+        "main": "apps/shankhnaad/src/main.ts",
+        "tsConfig": "apps/shankhnaad/tsconfig.app.json",
+        "assets": ["apps/shankhnaad/src/assets"],
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/shankhnaad/src/environments/environment.ts",
+              "with": "apps/shankhnaad/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "shankhnaad:build"
+      }
+    },
+    "docker": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker build -f apps/shankhnaad/Dockerfile -t shankhnaad .",
+            "forwardAllArgs": false
+          },
+          "docker run -dp {args.port}:3000 --name shankhnaad shankhnaad"
+        ],
+        "parallel": false
+      }
+    },
+    "docker-build-only": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "docker build -f apps/shankhnaad/Dockerfile -t shankhnaad .",
+            "forwardAllArgs": false
+          }
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["dist/apps/shankhnaad"],
+      "options": {
+        "lintFilePatterns": ["apps/shankhnaad/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/shankhnaad"],
+      "options": {
+        "jestConfig": "apps/shankhnaad/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:client"]
+}

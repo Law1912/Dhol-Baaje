@@ -1,0 +1,632 @@
+{
+  "definitions": [
+    {
+      "name": "walletAsset",
+      "type": "Entity",
+      "isNft": false,
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["4269736f6e"],
+          "description": "Name of the asset",
+          "defType": "Scalar"
+        },
+        {
+          "name": "fingerprint",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["asset12q7zh30hj2yme96wy8ms4fcdrwtep0auz8xqly"],
+          "description": "Fingerprint of the asset",
+          "defType": "Scalar"
+        },
+        {
+          "name": "policyId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": [
+            "0b7018936bc41808ddabd96b4908b583195a0c252b5752ad38012bdb"
+          ],
+          "description": "Policy ID of the asset",
+          "defType": "Scalar"
+        },
+        {
+          "name": "quantity",
+          "type": "number",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["1"],
+          "description": "Quantity of the asset",
+          "defType": "Scalar"
+        },
+        {
+          "name": "metadata",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "Metadata associated with the asset",
+          "defType": "Scalar"
+        },
+        {
+          "name": "assetSubjectId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["87960930223082"],
+          "description": "Fluree subject ID of the asset",
+          "defType": "Scalar"
+        },
+        {
+          "name": "logosphereId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": [
+            "62c0ac76d6eebbf70828da57ea06c41a55001a2eb3cc929206d8f39abdbfaefc"
+          ],
+          "description": "Logosphere ID of the asset",
+          "defType": "Scalar"
+        }
+      ]
+    },
+    {
+      "name": "wallet",
+      "type": "Entity",
+      "isNft": false,
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["Babingos wallet"],
+          "description": "Name of the wallet",
+          "defType": "Scalar"
+        },
+        {
+          "name": "walletId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": true,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["cd72843c95467883ccd6dafe227b91c96f071713"],
+          "description": "ID of the wallet",
+          "defType": "Scalar"
+        },
+        {
+          "name": "address",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": true,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": [
+            "addr_test1qzsn8km55mp6cra7l20cymauks2fay8sqc3jr874mgmxpsa5mj4dvw5zrxmhauknj60c8tsf7x72ng0r8zmxa3necjlsgx9q6d"
+          ],
+          "description": "Address of the wallet",
+          "defType": "Scalar"
+        },
+        {
+          "name": "publicKey",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": true,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": [
+            "a1f009e6f5770c7b10729f27237c7ccc677739e31119a69766664dee611220948234926b2c445c2e9e2ff40f22beafa193d7fedf72e5e877bffd606d33b6638c"
+          ],
+          "description": "Public key of the wallet",
+          "defType": "Scalar"
+        },
+        {
+          "name": "balance",
+          "type": "number",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["0", "1000"],
+          "description": "Balance of the wallet in lovelace",
+          "defType": "Scalar"
+        },
+        {
+          "name": "assets",
+          "type": "walletAsset",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "Wallet assets",
+          "defType": "EntityArray"
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "type": "Entity",
+      "isNft": false,
+      "props": [
+        {
+          "name": "username",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": true,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["babingo_whoelse@gmail.com"],
+          "description": "username",
+          "defType": "Scalar"
+        },
+        {
+          "name": "wallet",
+          "type": "wallet",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "User wallet",
+          "defType": "Entity"
+        },
+        {
+          "name": "subscriptionEndDate",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "Subscription End Date",
+          "defType": "Scalar"
+        },
+        {
+          "name": "myTracksId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "defType": "ScalarArray"
+        },
+        {
+          "name": "likedTracksId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "defType": "ScalarArray"
+        },
+        {
+          "name": "historyTracksId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "defType": "ScalarArray"
+        },
+        {
+          "name": "rewards",
+          "type": "number",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["0", "1000"],
+          "description": "Reward to be given to the user",
+          "defType": "Scalar"
+        },
+        {
+          "name": "likes",
+          "type": "number",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["0", "1000"],
+          "description": "number of likes gained by the user in a month",
+          "defType": "Scalar"
+        }
+      ]
+    },
+    {
+      "name": "track",
+      "type": "Entity",
+      "isNft": true,
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["Song name"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["Some name"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "defType": "Scalar"
+        },
+        {
+          "name": "music",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["123456789"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["123456789"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "likes",
+          "type": "number",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["123456789"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "n_listens",
+          "type": "number",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["123456789"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "lyrics",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["a great song!!!"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "album",
+          "type": "Genre",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": [
+            ["Indie", "Indie"],
+            ["Love", "Love"],
+            ["Ambient", "Ambient"],
+            ["Party", "Party"],
+            ["Devotional", "Devotional"],
+            ["Decades", "Decades"],
+            ["Dance", "Dance"],
+            ["Student", "Student"],
+            ["Chill", "Chill"],
+            ["Workout", "Workout"],
+            ["Rock", "Rock"],
+            ["Sleep", "Sleep"],
+            ["Instrumental", "Instrumental"],
+            ["Jazz", "Jazz"],
+            ["Classical", "Classical"],
+            ["Focus", "Focus"],
+            ["Soul", "Soul"],
+            ["Travel", "Travel"],
+            ["Disco", "Disco"],
+            ["Sad", "Sad"]
+          ],
+          "defType": "EnumArray"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": false,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "examples": ["123456789"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "nftIpfsCid",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "CID from IPFS",
+          "examples": ["QmPrhyaEVcavi3XuP7WHBcD2n8xcUK6mGcF1u6AchXYbgn"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "nftCardanoTxId",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "Cardano transaction ID",
+          "examples": [
+            "664274fa17646981774ac9a5ab5f79d4229788ee5d78bb6e3af351f9b25e2ac3"
+          ],
+          "defType": "Scalar"
+        },
+        {
+          "name": "nftName",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "Cardano NFT name",
+          "examples": ["NFT Name"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "nftDescription",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "Cardano NFT description",
+          "examples": ["NFT Description"],
+          "defType": "Scalar"
+        },
+        {
+          "name": "nftAssetName",
+          "type": "string",
+          "isEnabled": true,
+          "isRequired": false,
+          "isIndexed": true,
+          "isUnique": false,
+          "isPK": false,
+          "isReadOnly": false,
+          "isWriteOnly": false,
+          "description": "Cardano NFT asset name",
+          "examples": ["NFT Asset Name"],
+          "defType": "Scalar"
+        }
+      ]
+    },
+    {
+      "name": "Genre",
+      "type": "Enum",
+      "props": [
+        {
+          "name": "Indie",
+          "type": "string"
+        },
+        {
+          "name": "Love",
+          "type": "string"
+        },
+        {
+          "name": "Ambient",
+          "type": "string"
+        },
+        {
+          "name": "Party",
+          "type": "string"
+        },
+        {
+          "name": "Devotional",
+          "type": "string"
+        },
+        {
+          "name": "Decades",
+          "type": "string"
+        },
+        {
+          "name": "Dance",
+          "type": "string"
+        },
+        {
+          "name": "Student",
+          "type": "string"
+        },
+        {
+          "name": "Chill",
+          "type": "string"
+        },
+        {
+          "name": "Workout",
+          "type": "string"
+        },
+        {
+          "name": "Rock",
+          "type": "string"
+        },
+        {
+          "name": "Sleep",
+          "type": "string"
+        },
+        {
+          "name": "Instrumental",
+          "type": "string"
+        },
+        {
+          "name": "Jazz",
+          "type": "string"
+        },
+        {
+          "name": "Classical",
+          "type": "string"
+        },
+        {
+          "name": "Focus",
+          "type": "string"
+        },
+        {
+          "name": "Soul",
+          "type": "string"
+        },
+        {
+          "name": "Travel",
+          "type": "string"
+        },
+        {
+          "name": "Disco",
+          "type": "string"
+        },
+        {
+          "name": "Sad",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

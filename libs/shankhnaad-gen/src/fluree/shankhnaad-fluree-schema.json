@@ -1,0 +1,505 @@
+{
+  "collections": [
+    {
+      "_id": "_collection",
+      "name": "walletAsset",
+      "predicates": [
+        {
+          "_id": "_predicate",
+          "name": "identifier",
+          "type": "string",
+          "doc": "walletAsset unique identifier",
+          "index": true,
+          "unique": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "createdAt",
+          "type": "instant",
+          "doc": "walletAsset creation time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "updatedAt",
+          "type": "instant",
+          "doc": "walletAsset last update time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "name",
+          "doc": "Name of the asset",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "fingerprint",
+          "doc": "Fingerprint of the asset",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "policyId",
+          "doc": "Policy ID of the asset",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "quantity",
+          "doc": "Quantity of the asset",
+          "index": false,
+          "unique": false,
+          "type": "bigint"
+        },
+        {
+          "_id": "_predicate",
+          "name": "metadata",
+          "doc": "Metadata associated with the asset",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "assetSubjectId",
+          "doc": "Fluree subject ID of the asset",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "logosphereId",
+          "doc": "Logosphere ID of the asset",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "_id": "_collection",
+      "name": "wallet",
+      "predicates": [
+        {
+          "_id": "_predicate",
+          "name": "identifier",
+          "type": "string",
+          "doc": "wallet unique identifier",
+          "index": true,
+          "unique": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "createdAt",
+          "type": "instant",
+          "doc": "wallet creation time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "updatedAt",
+          "type": "instant",
+          "doc": "wallet last update time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "name",
+          "doc": "Name of the wallet",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "walletId",
+          "doc": "ID of the wallet",
+          "index": true,
+          "unique": true,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "address",
+          "doc": "Address of the wallet",
+          "index": true,
+          "unique": true,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "publicKey",
+          "doc": "Public key of the wallet",
+          "index": true,
+          "unique": true,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "balance",
+          "doc": "Balance of the wallet in lovelace",
+          "index": false,
+          "unique": false,
+          "type": "bigint"
+        },
+        {
+          "_id": "_predicate",
+          "name": "assets",
+          "doc": "Wallet assets",
+          "index": false,
+          "unique": false,
+          "type": "ref",
+          "restrictCollection": "walletAsset",
+          "multi": true
+        }
+      ]
+    },
+    {
+      "_id": "_collection",
+      "name": "user",
+      "predicates": [
+        {
+          "_id": "_predicate",
+          "name": "identifier",
+          "type": "string",
+          "doc": "user unique identifier",
+          "index": true,
+          "unique": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "createdAt",
+          "type": "instant",
+          "doc": "user creation time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "updatedAt",
+          "type": "instant",
+          "doc": "user last update time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "username",
+          "doc": "username",
+          "index": true,
+          "unique": true,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "wallet",
+          "doc": "User wallet",
+          "index": false,
+          "unique": false,
+          "type": "ref",
+          "restrictCollection": "wallet"
+        },
+        {
+          "_id": "_predicate",
+          "name": "subscriptionEndDate",
+          "doc": "Subscription End Date",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "myTracksId",
+          "index": false,
+          "unique": false,
+          "type": "string",
+          "multi": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "likedTracksId",
+          "index": false,
+          "unique": false,
+          "type": "string",
+          "multi": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "historyTracksId",
+          "index": false,
+          "unique": false,
+          "type": "string",
+          "multi": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "rewards",
+          "doc": "Reward to be given to the user",
+          "index": false,
+          "unique": false,
+          "type": "bigint"
+        },
+        {
+          "_id": "_predicate",
+          "name": "likes",
+          "doc": "number of likes gained by the user in a month",
+          "index": false,
+          "unique": false,
+          "type": "bigint"
+        }
+      ]
+    },
+    {
+      "_id": "_collection",
+      "name": "track",
+      "predicates": [
+        {
+          "_id": "_predicate",
+          "name": "identifier",
+          "type": "string",
+          "doc": "track unique identifier",
+          "index": true,
+          "unique": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "createdAt",
+          "type": "instant",
+          "doc": "track creation time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "updatedAt",
+          "type": "instant",
+          "doc": "track last update time",
+          "index": true
+        },
+        {
+          "_id": "_predicate",
+          "name": "title",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "subtitle",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "username",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "music",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "image",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "likes",
+          "index": false,
+          "unique": false,
+          "type": "bigint"
+        },
+        {
+          "_id": "_predicate",
+          "name": "n_listens",
+          "index": false,
+          "unique": false,
+          "type": "bigint"
+        },
+        {
+          "_id": "_predicate",
+          "name": "lyrics",
+          "index": false,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "album",
+          "index": false,
+          "unique": false,
+          "type": "tag",
+          "restrictTag": true,
+          "multi": true,
+          "tags": [
+            {
+              "_id": "_tag",
+              "id": "Indie"
+            },
+            {
+              "_id": "_tag",
+              "id": "Love"
+            },
+            {
+              "_id": "_tag",
+              "id": "Ambient"
+            },
+            {
+              "_id": "_tag",
+              "id": "Party"
+            },
+            {
+              "_id": "_tag",
+              "id": "Devotional"
+            },
+            {
+              "_id": "_tag",
+              "id": "Decades"
+            },
+            {
+              "_id": "_tag",
+              "id": "Dance"
+            },
+            {
+              "_id": "_tag",
+              "id": "Student"
+            },
+            {
+              "_id": "_tag",
+              "id": "Chill"
+            },
+            {
+              "_id": "_tag",
+              "id": "Workout"
+            },
+            {
+              "_id": "_tag",
+              "id": "Rock"
+            },
+            {
+              "_id": "_tag",
+              "id": "Sleep"
+            },
+            {
+              "_id": "_tag",
+              "id": "Instrumental"
+            },
+            {
+              "_id": "_tag",
+              "id": "Jazz"
+            },
+            {
+              "_id": "_tag",
+              "id": "Classical"
+            },
+            {
+              "_id": "_tag",
+              "id": "Focus"
+            },
+            {
+              "_id": "_tag",
+              "id": "Soul"
+            },
+            {
+              "_id": "_tag",
+              "id": "Travel"
+            },
+            {
+              "_id": "_tag",
+              "id": "Disco"
+            },
+            {
+              "_id": "_tag",
+              "id": "Sad"
+            }
+          ]
+        },
+        {
+          "_id": "_predicate",
+          "name": "value",
+          "index": false,
+          "unique": false,
+          "type": "bigint"
+        },
+        {
+          "_id": "_predicate",
+          "name": "nftIpfsCid",
+          "doc": "CID from IPFS",
+          "index": true,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "nftCardanoTxId",
+          "doc": "Cardano transaction ID",
+          "index": true,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "nftName",
+          "doc": "Cardano NFT name",
+          "index": true,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "nftDescription",
+          "doc": "Cardano NFT description",
+          "index": true,
+          "unique": false,
+          "type": "string"
+        },
+        {
+          "_id": "_predicate",
+          "name": "nftAssetName",
+          "doc": "Cardano NFT asset name",
+          "index": true,
+          "unique": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "_id": "_collection",
+      "name": "_user",
+      "predicates": [
+        {
+          "_id": "_predicate",
+          "name": "password",
+          "type": "string",
+          "doc": "Hashed user password"
+        },
+        {
+          "_id": "_predicate",
+          "name": "salt",
+          "type": "string",
+          "doc": "Password salt"
+        },
+        {
+          "_id": "_predicate",
+          "name": "cardanoPublicKey",
+          "type": "string",
+          "doc": "User wallet public key on Cardano"
+        }
+      ]
+    }
+  ]
+}

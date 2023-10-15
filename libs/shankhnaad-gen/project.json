@@ -1,0 +1,44 @@
+{
+  "root": "libs/shankhnaad-gen",
+  "sourceRoot": "libs/shankhnaad-gen/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["dist/libs/shankhnaad-gen"],
+      "options": {
+        "outputPath": "dist/libs/shankhnaad-gen",
+        "tsConfig": "libs/shankhnaad-gen/tsconfig.lib.json",
+        "packageJson": "libs/shankhnaad-gen/package.json",
+        "main": "libs/shankhnaad-gen/src/index.ts",
+        "assets": [
+          "libs/shankhnaad-gen/*.md",
+          "libs/shankhnaad-gen/src/gql/*.graphql",
+          "libs/shankhnaad-gen/src/fluree/*.json"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["dist/libs/shankhnaad-gen"],
+      "options": {
+        "lintFilePatterns": ["libs/shankhnaad-gen/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shankhnaad-gen"],
+      "options": {
+        "jestConfig": "libs/shankhnaad-gen/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "fluree-test-db": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "fluree-test-db"
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:lib", "kind:feature", "domain:shankhnaad"]
+}

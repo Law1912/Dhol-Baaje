@@ -1,0 +1,261 @@
+type WalletAsset {
+  id: ID
+  subjectId: String
+  name: String
+  fingerprint: String
+  policyId: String
+  quantity: Int
+  metadata: String
+  assetSubjectId: String
+  logosphereId: String
+  createdAt: String
+  updatedAt: String
+}
+
+input WalletAssetInput {
+  id: ID
+  subjectId: String
+  name: String
+  fingerprint: String
+  policyId: String
+  quantity: Int
+  metadata: String
+  assetSubjectId: String
+  logosphereId: String
+  createdAt: String
+  updatedAt: String
+}
+
+type Wallet {
+  id: ID
+  subjectId: String
+  name: String
+  walletId: String
+  address: String
+  publicKey: String
+  balance: Int
+  assets: [WalletAsset]
+  createdAt: String
+  updatedAt: String
+}
+
+input WalletInput {
+  id: ID
+  subjectId: String
+  name: String
+  walletId: String
+  address: String
+  publicKey: String
+  balance: Int
+  assets: [WalletAssetInput]
+  createdAt: String
+  updatedAt: String
+}
+
+type User {
+  id: ID
+  subjectId: String
+  username: String
+  wallet: Wallet
+  subscriptionEndDate: String
+  myTracksId: [String]
+  likedTracksId: [String]
+  historyTracksId: [String]
+  rewards: Int
+  likes: Int
+  createdAt: String
+  updatedAt: String
+}
+
+input UserInput {
+  id: ID
+  subjectId: String
+  username: String
+  wallet: WalletInput
+  subscriptionEndDate: String
+  myTracksId: [String]
+  likedTracksId: [String]
+  historyTracksId: [String]
+  rewards: Int
+  likes: Int
+  createdAt: String
+  updatedAt: String
+}
+
+type Track {
+  id: ID
+  subjectId: String
+  title: String
+  subtitle: String
+  username: String
+  music: String
+  image: String
+  likes: Int
+  n_listens: Int
+  lyrics: String
+  album: [Genre]
+  value: Int
+  nftIpfsCid: String
+  nftCardanoTxId: String
+  nftName: String
+  nftDescription: String
+  nftAssetName: String
+  createdAt: String
+  updatedAt: String
+}
+
+input TrackInput {
+  id: ID
+  subjectId: String
+  title: String
+  subtitle: String
+  username: String
+  music: String
+  image: String
+  likes: Int
+  n_listens: Int
+  lyrics: String
+  album: [Genre]
+  value: Int
+  nftIpfsCid: String
+  nftCardanoTxId: String
+  nftName: String
+  nftDescription: String
+  nftAssetName: String
+  createdAt: String
+  updatedAt: String
+}
+
+enum Genre {
+  Indie
+  Love
+  Ambient
+  Party
+  Devotional
+  Decades
+  Dance
+  Student
+  Chill
+  Workout
+  Rock
+  Sleep
+  Instrumental
+  Jazz
+  Classical
+  Focus
+  Soul
+  Travel
+  Disco
+  Sad
+}
+
+type WalletKeyPair {
+  privateKey: String
+  publicKey: String
+  accountPublicKey: String
+  mnemonic: String
+}
+
+input MintingMetaData {
+  name: String!
+  description: String!
+  image: String!
+}
+
+input AssetData {
+  name: String!
+  amount: Int!
+}
+
+input NftDto {
+  walletAddress: String!
+  assetName: String!
+  metaData: MintingMetaData!
+}
+
+input AssetDto {
+  walletAddress: String!
+  assets: [AssetData!]!
+}
+
+input TransferRecipient {
+  walletAddress: String!
+  policyId: String
+  asset: AssetData!
+}
+
+input TransferDto {
+  walletAddress: String!
+  recipients: [TransferRecipient!]!
+}
+
+type UserAuth {
+  username: String
+  cardanoPublicKey: String
+  authId: String
+  token: String
+}
+
+type Query {
+  walletAssetExists(id: ID): Boolean
+  walletAssetFindAll(id: ID): [WalletAsset]
+  walletAssetFindOneById(id: ID): WalletAsset
+  walletAssetFindOneBySubjectId(subjectId: String): WalletAsset
+  walletAssetFindManyById(idList: [ID]): [WalletAsset]
+  walletExists(id: ID): Boolean
+  walletFindAll(id: ID): [Wallet]
+  walletFindOneById(id: ID): Wallet
+  walletFindOneBySubjectId(subjectId: String): Wallet
+  walletFindManyById(idList: [ID]): [Wallet]
+  walletFindOneByWalletId(walletId: String): Wallet
+  walletFindOneByAddress(address: String): Wallet
+  walletFindOneByPublicKey(publicKey: String): Wallet
+  userExists(id: ID): Boolean
+  userFindAll(id: ID): [User]
+  userFindOneById(id: ID): User
+  userFindOneBySubjectId(subjectId: String): User
+  userFindManyById(idList: [ID]): [User]
+  userFindOneByUsername(username: String): User
+  trackExists(id: ID): Boolean
+  trackFindAll(id: ID): [Track]
+  trackFindOneById(id: ID): Track
+  trackFindOneBySubjectId(subjectId: String): Track
+  trackFindManyById(idList: [ID]): [Track]
+  trackFindAllByNftIpfsCid(nftIpfsCid: String): [Track]
+  trackFindAllByNftCardanoTxId(nftCardanoTxId: String): [Track]
+  trackFindAllByNftName(nftName: String): [Track]
+  trackFindAllByNftDescription(nftDescription: String): [Track]
+  trackFindAllByNftAssetName(nftAssetName: String): [Track]
+  getWalletBalance(walletId: String): Float
+  getWallet(walletId: String, mnemonic: String): Wallet
+  generateKeys(username: String): WalletKeyPair
+  loginUser(username: String, password: String): UserAuth
+  getLastTxId(username: String): String
+  getUserWallet(username: String): Wallet
+  mintingNftCbor(nft: NftDto): String
+  mintingAssetsCbor(asset: AssetDto): String
+  transferCbor(transfer: TransferDto): String
+}
+
+type Mutation {
+  walletAssetSave(walletAsset: WalletAssetInput): WalletAsset
+  walletAssetDelete(id: ID): Boolean
+  walletSave(wallet: WalletInput): Wallet
+  walletDelete(id: ID): Boolean
+  userSave(user: UserInput): User
+  userDelete(id: ID): Boolean
+  trackSave(track: TrackInput): Track
+  trackDelete(id: ID): Boolean
+  trackMintNft(track: TrackInput): Track
+  trackMintNftTx(track: TrackInput): String
+  createWallet(name: String, passphrase: String): Wallet
+  createWalletFromPubKey(username: String, cardanoPublicKey: String): Wallet
+  createUserAuth(publicKey: String, role: String): UserAuth
+  createPassword(username: String, password: String): String
+  createUser(username: String, password: String, role: String): UserAuth
+  submitTx(txCborHex: String): String
+  mintNft(nft: NftDto): String
+  mintAssets(asset: AssetDto): String
+  transfer(transfer: TransferDto): String
+  submitTransaction(cbor: String): String
+}
